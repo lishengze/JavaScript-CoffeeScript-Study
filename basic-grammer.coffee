@@ -23,3 +23,5 @@ console.log iphone.sell() #=> "Buy iphone with 4999 in beijing"
 
 ipad = Gadget.create("ipad", 3999)
 console.log ipad.sell() #=> "Buy ipad with 3999 in beijing"
+
+

@@ -23,13 +23,17 @@
 function createOjb(obj) {
   function func() {};
   func.prototype = obj;
-  new func();
+  return new func();
 }
 
 function inherit(class_child, class_parent) {
   var proto = createOjb(class_parent.prototype);
   proto.constructor = class_child;
   class_child.prototype = proto;
+    //  function ctor() { this.constructor = class_child; }
+    //  ctor.prototype = class_parent.prototype;
+    //  class_child.prototype = new ctor();
+    //  class_child.__super__ = class_parent.prototype;
 }
 
 var class_parent_a = function() {
@@ -42,7 +46,7 @@ class_parent_a.prototype.sayHelloParentA = function () {
 
 var class_child_a = function() {
   this.age = 27;
-  class_parent_a(this);
+  class_parent_a.call(this);
 }
 
 inherit(class_child_a, class_parent_a);
