@@ -1,6 +1,6 @@
 # sum = (num...) ->
-#         num.reduce(x,y) -> x + y 
-        
+#         num.reduce(x,y) -> x + y
+
 # sum 1,2,3
 
 # class Gadget
@@ -24,3 +24,6 @@
 # ipad = Gadget.create("ipad", 3999)
 # console.log ipad.sell() #=> "Buy ipad with 3999 in beijing"
 
+    if uri?
+      item = pane.itemForURI(uri)
+      item ?= opener(uri, options) for opener in @getOpeners() when not item
