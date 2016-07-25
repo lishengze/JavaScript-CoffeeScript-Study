@@ -21,6 +21,7 @@ var grammerPoint = "\nnext 的参数是上一个yield语句的值";
 console.log(grammerPoint);
 
 function* testNext(x) {
+  console.log('TestNext!');
   var y = 2 *(yield (x + 1));
   var z = yield(y/3);
   return (x+y+z)
@@ -144,41 +145,44 @@ var clock = function* () {
 }
 
 var Clock = clock();
-for (var i = 0; i<10; ++i) {
-  Clock.next();
-}
+// for (var i = 0; i<10; ++i) {
+//   Clock.next();
+// }
 
 //10. Generator可以暂停函数的执行， 返回任意表达式的值。使其有多种应用。
 // 测试yield , 观察是否是yield 后的语句执行后才会响应next
 grammerPoint = '\n10.1测试yield , 观察是否是yield 后的语句执行后才会响应next';
 console.log(grammerPoint);
 
-function step1() {
-  var time1 = 1;
-  // setTimeout(function(){
-  //   console.log ('step1, ' + time1);
-  //   return 1;
-  // }, time1);
+function step1(time1) {
+  var time2 = time1 * 2;
+  var IsCallback = true;
 
-  console.log ('step1, ' + time1);
-  return 1;
+  if (true === IsCallback) {
+    setTimeout(function(){
+      console.log ('step1, time1: ' + time1);
+      return time2;
+    }, time1);
+  } else {
+    console.log ('step1, ' + time1);
+    return time2;
+  }
 }
 
 function step2(time2) {
-  // var time2 = 1;
   setTimeout(function(){
     console.log('step2, ' + time2);
   }, time2)
 }
 
-function* testYield() {
+function* testYield(initialTime) {
   console.log('TestYield Begun!');
-  var value = yield step1();
-  yield step2(value);
-
+  var step1value = yield step1(initialTime);
+  var step2value = yield step2(step1value);
 }
 
-var testYieldObj = testYield();
+var initialTime = 1000;
+var testYieldObj = testYield(initialTime);
 var value1 = testYieldObj.next();
 console.log('value1 : ' + value1.value);
-// testYieldObj.next(value1);
+testYieldObj.next(value1.value);
