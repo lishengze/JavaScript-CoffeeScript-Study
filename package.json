@@ -1,0 +1,6 @@
+{
+  "description": "javascript-coffeescript-study",
+  "devDependencies": {
+    "thunkify": "2.1.2"
+  },
+}
