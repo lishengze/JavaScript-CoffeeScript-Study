@@ -42,3 +42,33 @@ function run(gen) {
 }
 
 run(GeneratorFunc);
+
+function co(gen) {
+  var ctx = this;
+
+  return new Promise(function(resolve, reject) {
+    if (typeof gen === 'function') genAuto = gen.call(ctx);
+    if (!gen || typeof gen.next !== 'function') return resolve(gen);
+
+    onFulfilled();
+    function onFulfilled() {
+      var result;
+      try {
+          result = genAuto.next();
+      } catch (error){
+          reject(error);
+      }
+      next(result);
+    }
+
+    function next(result) {
+      if (result.done) return resolve(result.value);
+      var value = toPromise.call(ctx, result.value);
+      if (value && isPromise(value)) return next(onFulfilled,onRejected);
+      return function onRejected() {
+        new TypeError('You may only yield a function, promise, generator, array, or object, '
+                    + 'but the following object was passed: "' + String(ret.value) + '"');
+      }
+    }
+  });
+}
