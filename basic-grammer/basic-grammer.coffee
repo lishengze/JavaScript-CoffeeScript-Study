@@ -23,7 +23,12 @@
 
 # ipad = Gadget.create("ipad", 3999)
 # console.log ipad.sell() #=> "Buy ipad with 3999 in beijing"
+array = new Array(5);
+i = 0;
 
-    if uri?
-      item = pane.itemForURI(uri)
-      item ?= opener(uri, options) for opener in @getOpeners() when not item
+for index in array
+  array[index] = i++
+  console.log array[index]
+
+for name, i in ["Roger", "Roderick"]
+  console.log "#{i} - Release #{name}"
