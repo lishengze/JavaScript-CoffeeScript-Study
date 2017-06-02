@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<script src="../lib/angular-1.6.4/angular.js"></script>
+		<title> 第一个angular 程序 </title>
+	</head>
+	<body ng-app="myapp">
+		<div ng-controller="Hello">
+			<h2> 你好！第一个 {{hello.title}} 程序。</h2>
+		</div>
+		<script>
+			angular.module('myapp',[]).controller('Hello', function($scope){
+				$scope.hello = {};
+				$scope.hello.title = "AngularJS";
+			});
+		</script>
+
+		<div ng-controller="studentController">
+		Enter First Name: <input type="text" ng-model="student.firstName"> <br><br>
+		Enter Last  Name: <input type="text" ng-model="student.lastName"> <br><br>
+		Your Name is {{student.fullName()}}
+		</div>
+		<script>
+			angular.module('myapp', []).controller('studentController', function($scope){
+				$scope.student = {}
+				$scope.student.firstName = "李";
+				$scope.student.lastName = "刚";
+				$scope.student.fullName = function() {
+					return $scope.student.firstName + " " + $scope.student.lastName;
+				}		
+			});
+		</script>
+
+	</body>
+</html>
